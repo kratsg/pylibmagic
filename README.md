@@ -42,3 +42,15 @@ $ apt install cmake autoconf automake libtool build-essential git python3-dev py
 $ cmake -S . -B build
 $ cmake --build build
 ```
+
+## Installing
+
+```
+python3 -m pip install .
+```
+
+and the libraries are installed at
+
+```
+DYLD_LIBRARY_PATH=/path/to/python/env/lib/pylibmagic/:$DYLD_LIBRARY_PATH
+```

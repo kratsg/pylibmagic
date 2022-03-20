@@ -23,9 +23,7 @@ ExternalProject_Add(libmagic
 )
 
 if(SKBUILD)
-  install(FILES
-    ${pylibmagic_BINARY_DIR}/libmagic-prefix/lib/libmagic.so.1.0.0
-    ${pylibmagic_BINARY_DIR}/libmagic-prefix/lib/libmagic.so.1
-    ${pylibmagic_BINARY_DIR}/libmagic-prefix/lib/libmagic.so
-    DESTINATION ${CMAKE_INSTALL_LIBDIR})
+  install(DIRECTORY
+    ${pylibmagic_BINARY_DIR}/libmagic-prefix/lib/
+    DESTINATION pylibmagic)
 endif()
