@@ -13,7 +13,7 @@ using automake, CMake, scikit-build, and cibuildwheel.
 Why?
 ----
 
-If you use `python-magic <>`__, you typically get an error like this
+If you use `python-magic <https://github.com/ahupp/python-magic>`__, you typically get an error like this
 
 .. code:: pycon
 
