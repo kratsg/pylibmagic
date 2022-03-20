@@ -46,6 +46,10 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
+    - name: Install build tools
+      if: matrix.os == 'macos-latest'
+      run: brew install autoconf automake libtool
+
     - name: Install package
       run: python -m pip install -e .[test]
 
