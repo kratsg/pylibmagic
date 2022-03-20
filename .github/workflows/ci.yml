@@ -27,6 +27,7 @@ jobs:
   checks:
     name: Check Python ${{ matrix.python-version }} on ${{ matrix.sys.os }}
     runs-on: ${{ matrix.sys.os }}
+    continue-on-error: ${{ matrix.experimental }}
     needs: [pre-commit]
     strategy:
       fail-fast: false
@@ -44,8 +45,6 @@ jobs:
         - python-version: "3.9"
           sys: { os: windows-latest, shell: 'msys2 {0}' }
           experimental: true
-
-    continue-on-error: ${{ matrix.experimental }}
 
     defaults:
       run:
