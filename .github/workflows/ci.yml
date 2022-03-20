@@ -51,11 +51,11 @@ jobs:
         update: true
         install: autotools
 
-    - name: Install build tools ${{ matrix.runs-on }}
+    - name: Install build tools (macos-latest)
       if: matrix.runs-on == 'macos-latest'
       run: brew install autoconf automake libtool
 
-    - name: Install build tools ${{ matrix.runs-on }}
+    - name: Install build tools (windows-latest)
       if: matrix.runs-on == 'windows-latest'
       shell: msys2 {0}
       run: autoreconf -rfi
