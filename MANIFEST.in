@@ -3,7 +3,7 @@ graft src
 graft tests
 
 include LICENSE
-include README.md
+include README.rst
 include pyproject.toml
 include setup.py
 include setup.cfg

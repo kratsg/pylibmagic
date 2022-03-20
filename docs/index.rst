@@ -14,7 +14,7 @@ This should be updated!
    :caption: Contents
    :glob:
 
-
+.. include:: ../README.rst
 
 Indices and tables
 ==================
