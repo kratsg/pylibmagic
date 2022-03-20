@@ -52,7 +52,13 @@ jobs:
       if: matrix.sys.os == 'windows-latest'
       with:
         update: true
-        install: autotools
+        install: >-
+          autotool
+          mingw-w64-x86_64-gcc
+          mingw-w64-x86_64-python-pip
+          mingw-w64-x86_64-cmake
+          mingw-w64-x86_64-make
+          mingw-w64-x86_64-python-pytest
 
     - uses: actions/setup-python@v2
       with:
