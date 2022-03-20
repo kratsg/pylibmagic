@@ -11,7 +11,7 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_MACOSX_RPATH 1)
 
 include(ExternalProject)
-ExternalProject_Add(libmagic
+ExternalProject_Add(_libmagic
     GIT_REPOSITORY https://github.com/file/file.git
     GIT_TAG FILE5_41
     SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/libmagic
@@ -22,18 +22,13 @@ ExternalProject_Add(libmagic
 )
 
 if(SKBUILD)
+  add_library(libmagic SHARED IMPORTED GLOBAL)
+  set_target_properties(libmagic
+    PROPERTIES IMPORTED_LOCATION
+      ${_libmagic_INSTALL_DIR}/libmagic-prefix/lib/libmagic.so.1.0.0
+      ${_libmagic_INSTALL_DIR}/libmagic-prefix/lib/libmagic.so.1
+      ${_libmagic_INSTALL_DIR}/libmagic-prefix/lib/libmagic.so
+  )
+
   install(TARGETS libmagic LIBRARY DESTINATION pylibmagic)
 endif()
-
-#SET(FXCM_INCLUDE_DIR ${CMAKE_CURRENT_BINARY_DIR}/3rd_party/src/ForexConnectDownload/include)
-#SET(FXCM_LIB_DIR ${CMAKE_CURRENT_BINARY_DIR}/3rd_party/src/ForexConnectDownload/lib)
-
-
-#add_library(ForexConnect SHARED IMPORTED)
-#set_target_properties(ForexConnect PROPERTIES IMPORTED_LOCATION ${FXCM_LIB_DIR}/libForexConnect.so)
-#
-#include_directories(${FXCM_INCLUDE_DIR})
-#add_executable(syncDatabase syncDatabase.cpp trader/database.cpp trader/fxcm.cpp)
-#target_link_libraries(syncDatabase ForexConnect)
-#add_dependencies(syncDatabase ForexConnectDownload)
-
