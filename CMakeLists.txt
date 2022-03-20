@@ -10,8 +10,9 @@ endif()
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_MACOSX_RPATH 1)
 
+include(GNUInstallDirs)
 include(ExternalProject)
-ExternalProject_Add(_libmagic
+ExternalProject_Add(libmagic
     GIT_REPOSITORY https://github.com/file/file.git
     GIT_TAG FILE5_41
     SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/libmagic
@@ -22,13 +23,9 @@ ExternalProject_Add(_libmagic
 )
 
 if(SKBUILD)
-  add_library(libmagic SHARED IMPORTED GLOBAL)
-  set_target_properties(libmagic
-    PROPERTIES IMPORTED_LOCATION
-      ${_libmagic_INSTALL_DIR}/libmagic-prefix/lib/libmagic.so.1.0.0
-      ${_libmagic_INSTALL_DIR}/libmagic-prefix/lib/libmagic.so.1
-      ${_libmagic_INSTALL_DIR}/libmagic-prefix/lib/libmagic.so
-  )
-
-  install(TARGETS libmagic LIBRARY DESTINATION pylibmagic)
+  install(FILES
+    ${pylibmagic_BINARY_DIR}/libmagic-prefix/lib/libmagic.so.1.0.0
+    ${pylibmagic_BINARY_DIR}/libmagic-prefix/lib/libmagic.so.1
+    ${pylibmagic_BINARY_DIR}/libmagic-prefix/lib/libmagic.so
+    DESTINATION ${CMAKE_INSTALL_LIBDIR})
 endif()
