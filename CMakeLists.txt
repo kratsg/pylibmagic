@@ -1,11 +1,6 @@
 cmake_minimum_required (VERSION 3.15)
 
 project(pylibmagic DESCRIPTION "Library for compiling libmagic using CMake.")
-if(SKBUILD)
-  find_package(PythonExtensions REQUIRED)
-  message(STATUS "The project is built using scikit-build")
-endif()
-
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_MACOSX_RPATH 1)
@@ -23,7 +18,9 @@ ExternalProject_Add(libmagic
 )
 
 if(SKBUILD)
+  message(STATUS "The project is built using scikit-build")
+
   install(DIRECTORY
     ${pylibmagic_BINARY_DIR}/libmagic-prefix/lib/
-    DESTINATION pylibmagic)
+    DESTINATION .)
 endif()
