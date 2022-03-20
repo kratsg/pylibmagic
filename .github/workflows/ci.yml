@@ -58,8 +58,6 @@ jobs:
           cmake
           gcc
           make
-          #python-pip
-          #python-pytest
 
     - name: Install build tools (macos-latest)
       if: matrix.sys.os == 'macos-latest'
