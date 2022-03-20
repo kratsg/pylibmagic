@@ -58,14 +58,14 @@ jobs:
       with:
         update: true
         install: >-
-          mingw-w64-git
-          mingw-w64-autotools
-          mingw-w64-cmake
-          mingw-w64-gcc
-          mingw-w64-make
-          mingw-w64-python-pip
-          mingw-w64-python-pytest
-          mingw-w64-ninja
+          mingw-w64-x86_64-git
+          mingw-w64-x86_64-autotools
+          mingw-w64-x86_64-cmake
+          mingw-w64-x86_64-gcc
+          mingw-w64-x86_64-make
+          mingw-w64-x86_64-python-pip
+          mingw-w64-x86_64-python-pytest
+          mingw-w64-x86_64-ninja
 
     - name: Install build tools (macos-latest)
       if: matrix.sys.os == 'macos-latest'
