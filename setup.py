@@ -6,10 +6,11 @@
 
 from __future__ import annotations
 
-from skbuild import setup # isort:skip
+from skbuild import setup  # isort:skip
 
 setup(
-    packages=['pylibmagic'],
-    package_dir={'': 'src'},
-    cmake_install_dir='src/pylibmagic',
+    packages=["pylibmagic"],
+    package_dir={"": "src"},
+    cmake_install_dir="src/pylibmagic",
+    include_package_data=True,
 )
