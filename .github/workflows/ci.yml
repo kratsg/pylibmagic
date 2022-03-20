@@ -66,6 +66,7 @@ jobs:
           make
           python-pip
           python-pytest
+          ninja
 
     - name: Install build tools (macos-latest)
       if: matrix.sys.os == 'macos-latest'
