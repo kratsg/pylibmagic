@@ -12,5 +12,5 @@ setup(
     packages=["pylibmagic"],
     package_dir={"": "src"},
     cmake_install_dir="src/pylibmagic",
-    include_package_data=True,
+    include_package_data=False,  # see scikit-build/scikit-build#680
 )
