@@ -1,11 +1,7 @@
 from __future__ import annotations
 
-import pylibmagic._core as m
+from ctypes.util import find_library
 
 
-def test_add():
-    assert m.add(2, 3) == 5
-
-
-def test_subtract():
-    assert m.subtract(7, 5) == 2
+def test_find_library():
+    assert find_library("magic") is not None
