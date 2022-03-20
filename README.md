@@ -1,6 +1,6 @@
 # pylibmagic v0.0.2
 
-Hopefully a python package that ships the libmagic binaries using CMake, scikit-build, and cibuildwheel.
+A lightweight, minimal python package that ships `magic` libraries using automake, CMake, scikit-build, and cibuildwheel.
 
 [![Actions Status][actions-badge]][actions-link]
 [![Documentation Status][rtd-badge]][rtd-link]
@@ -33,6 +33,29 @@ Hopefully a python package that ships the libmagic binaries using CMake, scikit-
 [rtd-link]:                 https://pylibmagic.readthedocs.io/en/latest/?badge=latest
 [sk-badge]:                 https://scikit-hep.org/assets/images/Scikit--HEP-Project-blue.svg
 
+## Why?
+
+If you use [python-magic](), you typically get an error like this
+
+```python
+>>> import magic
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/Users/kratsg/.pyenv/versions/venv/lib/python3.7/site-packages/magic/__init__.py", line 209, in <module>
+    libmagic = loader.load_lib()
+  File "/Users/kratsg/.pyenv/versions/venv/lib/python3.7/site-packages/magic/loader.py", line 49, in load_lib
+    raise ImportError('failed to find libmagic.  Check your installation')
+ImportError: failed to find libmagic.  Check your installation
+```
+
+which is frustrating because they don't ship shared lib with their python distribution. `pylibmagic` helps fill in the missing gap by shipping the required `magic` library and adding it to your path, so you can just do:
+
+```python
+>>> import pylibmagic
+>>> import magic
+```
+
+and be on your way. `pylibmagic` is designed to be very minimal and lightweight.
 
 ## Compiling
 
@@ -46,11 +69,7 @@ $ cmake --build build
 ## Installing
 
 ```
-python3 -m pip install .
+python3 -m pip install pylibmagic
 ```
 
-and the libraries are installed at
-
-```
-DYLD_LIBRARY_PATH=/path/to/python/env/lib/pylibmagic/:$DYLD_LIBRARY_PATH
-```
+and the libraries are installed at `python -c "import pylibmagic; print(pylibmagic.data)"`.
