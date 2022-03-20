@@ -25,13 +25,13 @@ if(SKBUILD)
   # install libmagic libraries
   install(DIRECTORY
     ${pylibmagic_BINARY_DIR}/${libmagic_PREFIX}/${CMAKE_INSTALL_LIBDIR}/
-    DESTINATION test
+    DESTINATION .
   )
 
   # install the python files too
   install(DIRECTORY
     ${PROJECT_SOURCE_DIR}/src/pylibmagic/
-    DESTINATION test
+    DESTINATION .
     FILES_MATCHING
     PATTERN "__init__.py"
     PATTERN "py.typed"
