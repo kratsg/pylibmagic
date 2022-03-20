@@ -29,14 +29,14 @@ if(SKBUILD)
   )
 
   # install the python files too
-  install(DIRECTORY
-    ${PROJECT_SOURCE_DIR}/src/pylibmagic/
-    DESTINATION .
-    FILES_MATCHING
-    PATTERN "__init__.py"
-    PATTERN "py.typed"
-    PATTERN "*.py"
-    PATTERN "*.pyi"
-    PATTERN "__pycache__" EXCLUDE
-  )
+  # install(DIRECTORY
+  #   ${PROJECT_SOURCE_DIR}/src/pylibmagic/
+  #   DESTINATION .
+  #   FILES_MATCHING
+  #   PATTERN "__init__.py"
+  #   PATTERN "py.typed"
+  #   PATTERN "*.py"
+  #   PATTERN "*.pyi"
+  #   PATTERN "__pycache__" EXCLUDE
+  # )
 endif()
