@@ -35,11 +35,12 @@ jobs:
         sys:
           - { os: ubuntu-latest, shell: bash }
           - { os: macos-latest, shell: bash }
-          - { os: windows-latest, shell: 'msys2 {0}' }
 
         include:
         - python-version: pypy-3.7
           sys: { os: ubuntu-latest, shell: bash }
+        - python-version: "3.9"
+          sys: { os: windows-latest, shell: 'msys2 {0}' }
 
     defaults:
       run:
@@ -58,12 +59,15 @@ jobs:
           cmake
           gcc
           make
+          python-pip
+          python-pytest
 
     - name: Install build tools (macos-latest)
       if: matrix.sys.os == 'macos-latest'
       run: brew install autoconf automake libtool
 
     - uses: actions/setup-python@v2
+      if: matrix.sys.os != 'windows-latest'
       with:
         python-version: ${{ matrix.python-version }}
 
