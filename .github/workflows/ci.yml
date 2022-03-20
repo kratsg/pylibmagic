@@ -35,12 +35,17 @@ jobs:
         sys:
           - { os: ubuntu-latest, shell: bash }
           - { os: macos-latest, shell: bash }
+        experimental: [false]
 
         include:
         - python-version: pypy-3.7
           sys: { os: ubuntu-latest, shell: bash }
+          experimental: false
         - python-version: "3.9"
           sys: { os: windows-latest, shell: 'msys2 {0}' }
+          experimental: true
+
+    continue-on-error: ${{ matrix.experimental }}
 
     defaults:
       run:
