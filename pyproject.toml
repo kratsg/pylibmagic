@@ -16,7 +16,7 @@ write_to = "src/pylibmagic/_version.py"
 [tool.cibuildwheel]
 test-extras = ["test"]
 test-command = "pytest {project}/tests"
-before-all = "apt install autoconf automake"
+before-all = "yum install autoconf automake"
 
 
 
