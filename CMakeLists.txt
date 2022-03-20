@@ -5,12 +5,14 @@ project(pylibmagic DESCRIPTION "Library for compiling libmagic using CMake.")
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_MACOSX_RPATH 1)
 
-#include(GNUInstallDirs)
+set(libmagic_PREFIX libmagic)
+
+include(GNUInstallDirs)
 include(ExternalProject)
 ExternalProject_Add(libmagic
     GIT_REPOSITORY https://github.com/file/file.git
     GIT_TAG FILE5_41
-    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/libmagic
+    PREFIX ${libmagic_PREFIX}
     BUILD_IN_SOURCE 1
     CONFIGURE_COMMAND autoreconf -f -i && ./configure --prefix=<INSTALL_DIR>
     BUILD_COMMAND ${MAKE_EXE}
@@ -20,7 +22,21 @@ ExternalProject_Add(libmagic
 if(SKBUILD)
   message(STATUS "The project is built using scikit-build")
 
+  # install libmagic libraries
   install(DIRECTORY
-    ${pylibmagic_BINARY_DIR}/libmagic-prefix/lib/
-    DESTINATION .)
+    ${pylibmagic_BINARY_DIR}/${libmagic_PREFIX}/${CMAKE_INSTALL_LIBDIR}/
+    DESTINATION test
+  )
+
+  # install the python files too
+  install(DIRECTORY
+    ${PROJECT_SOURCE_DIR}/src/pylibmagic/
+    DESTINATION test
+    FILES_MATCHING
+    PATTERN "__init__.py"
+    PATTERN "py.typed"
+    PATTERN "*.py"
+    PATTERN "*.pyi"
+    PATTERN "__pycache__" EXCLUDE
+  )
 endif()
