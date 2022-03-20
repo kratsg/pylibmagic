@@ -36,7 +36,7 @@ search = "Bump version: {current_version} → "
 src = "CMakeLists.txt"
 
 [[file]]
-src = "README.rst"
+src = "README.md"
 
 [[field]]
 # the name of the field
