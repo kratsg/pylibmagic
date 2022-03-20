@@ -1,4 +1,4 @@
-# pylibmagic v0.0.0
+# pylibmagic v0.0.1
 
 Hopefully a python package that ships the libmagic binaries using CMake, scikit-build, and cibuildwheel.
 
