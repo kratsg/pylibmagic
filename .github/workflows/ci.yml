@@ -46,6 +46,11 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
+    - uses: msys2/setup-msys2@v2
+      with:
+        update: true
+        install: autotools
+
     - name: Install build tools ${{ matrix.runs-on }}
       if: matrix.runs-on == 'macos-latest'
       run: brew install autoconf automake libtool
@@ -53,9 +58,6 @@ jobs:
     - name: Install build tools ${{ matrix.runs-on }}
       if: matrix.runs-on == 'windows-latest'
       shell: msys2 {0}
-      with:
-        update: true
-        install: autotools
       run: autoreconf -rfi
 
     - name: Install package
