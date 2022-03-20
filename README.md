@@ -37,6 +37,8 @@ Hopefully a python package that ships the libmagic binaries using CMake, scikit-
 ## Compiling
 
 ```
-cmake -S . -B build
-cmake --build build
+docker run -it --rm -v $PWD:/home/root -w /home/root ubuntu
+$ apt install cmake autoconf automake libtool build-essential git python3-dev python3-pip
+$ cmake -S . -B build
+$ cmake --build build
 ```
