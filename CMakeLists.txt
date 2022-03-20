@@ -14,7 +14,7 @@ ExternalProject_Add(libmagic
     GIT_TAG FILE5_41
     PREFIX ${libmagic_PREFIX}
     BUILD_IN_SOURCE 1
-    CONFIGURE_COMMAND autoreconf -f -i && ./configure --prefix=<INSTALL_DIR> --libdir=${CMAKE_INSTALL_LIBDIR}
+    CONFIGURE_COMMAND autoreconf -f -i && ./configure --prefix=<INSTALL_DIR> --libdir=<INSTALL_DIR>/${CMAKE_INSTALL_LIBDIR}
     BUILD_COMMAND ${MAKE_EXE}
     INSTALL_COMMAND ${MAKE_EXE}
 )

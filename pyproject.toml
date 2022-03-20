@@ -16,9 +16,12 @@ write_to = "src/pylibmagic/_version.py"
 [tool.cibuildwheel]
 test-extras = ["test"]
 test-command = "pytest {project}/tests"
+archs = ["auto64"]
 before-all = "yum install autoconf automake"
 
-
+[[tool.cibuildwheel.overrides]]
+select = "*-musllinux*"
+before-all = "apk add autoconf automake"
 
 [tool.pytest.ini_options]
 minversion = "6.0"
