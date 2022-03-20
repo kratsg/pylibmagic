@@ -1,6 +1,6 @@
 cmake_minimum_required (VERSION 3.15)
 
-project(pylibmagic DESCRIPTION "Library for compiling libmagic using CMake.")
+project(pylibmagic VERSION 0.0.0 DESCRIPTION "Library for compiling libmagic using CMake.")
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_MACOSX_RPATH 1)
