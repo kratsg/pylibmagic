@@ -55,13 +55,14 @@ jobs:
       if: matrix.runs-on == 'macos-latest'
       run: brew install autoconf automake libtool
 
-    - name: Install build tools (windows-latest)
-      if: matrix.runs-on == 'windows-latest'
-      shell: msys2 {0}
-      run: autoreconf -rfi
-
-    - name: Install package
+    - name: Install package (not-windows)
+      if: matrix.runs-on != 'windows-latest'
       run: python -m pip install -e .[test]
+
+    - name: Install package (windows)
+      if: matrix.runs-on == 'windows-latest'
+      run: python -m pip install -e .[test]
+      shell: msys2 {0}
 
     - name: Test package
       run: python -m pytest -ra
