@@ -52,7 +52,11 @@ jobs:
 
     - name: Install build tools ${{ matrix.runs-on }}
       if: matrix.runs-on == 'windows-latest'
-      run: choco install mingw
+      shell: msys2 {0}
+      with:
+        update: true
+        install: autotools
+      run: autoreconf -rfi
 
     - name: Install package
       run: python -m pip install -e .[test]
