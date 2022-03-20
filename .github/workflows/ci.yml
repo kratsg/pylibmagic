@@ -53,6 +53,7 @@ jobs:
       with:
         update: true
         install: >-
+          git
           autotools
           mingw-w64-x86_64-gcc
           mingw-w64-x86_64-python-pip
