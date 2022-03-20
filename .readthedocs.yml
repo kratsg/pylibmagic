@@ -8,14 +8,26 @@ version: 2
 # Build documentation in the docs/ directory with Sphinx
 sphinx:
   configuration: docs/conf.py
+  #fail_on_warning: true
 
-# Include PDF and ePub
+# Optionally build your docs in additional formats such as PDF and ePub
 formats: all
 
+build:
+  apt_packages:
+    - cmake
+    - autoconf
+    - automake
+    - libtool
+    - build-essential
+    - python3-dev
+    - python3-pip
+
+# python -m pip install .[docs]
 python:
   version: 3.8
   install:
-  - method: pip
-    path: .
-    extra_requirements:
-    - docs
+    - method: pip
+      path: .
+      extra_requirements:
+        - docs
