@@ -6,4 +6,4 @@ import pytest
 @pytest.mark.isolate
 def test_import_magic_fail():
     with pytest.raises(ImportError):
-        pass
+        import magic  # nopycln: import # noqa: F401
