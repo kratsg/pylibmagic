@@ -53,16 +53,17 @@ if sys.platform == "linux":
 
     def __magic_init__(
         self: ctypes.CDLL,
-        name: str,
+        name: str | None,
         mode: int = ctypes.DEFAULT_MODE,
         handle: int | None = None,
         use_errno: bool = False,
         use_last_error: bool = False,
         winmode: int | None = None,
     ) -> None:
-        path = data / name
-        if path.is_file():
-            name = str(path)
+        if name:
+            path = data / name
+            if path.is_file():
+                name = str(path)
         __cdll_init__(
             self,
             name,
