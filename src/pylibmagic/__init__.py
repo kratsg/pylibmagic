@@ -20,7 +20,7 @@ else:
 data = resources.files(__name__)
 
 # structure below matches https://github.com/python/cpython/blob/b3f2d4c8bab52573605c96c809a1e2162eee9d7e/Lib/ctypes/util.py
-keys = []
+keys: list[str] = []
 if os.name == "nt":
     keys = ["PATH"]
 elif os.name == "posix" and sys.platform == "darwin":
@@ -49,13 +49,31 @@ os.environ[
 # since reasonable, rational people expect consistency across platforms in python... but ok...
 if sys.platform == "linux":
 
-    class MagicCDLL(ctypes.CDLL):
-        def __init__(self, name, **kwargs):
+    __cdll_init__ = ctypes.CDLL.__init__
+
+    def __magic_init__(
+        self: ctypes.CDLL,
+        name: str | None,
+        mode: int = ctypes.DEFAULT_MODE,
+        handle: int | None = None,
+        use_errno: bool = False,
+        use_last_error: bool = False,
+        winmode: int | None = None,
+    ) -> None:
+        if name:
             path = data / name
             if path.is_file():
                 name = str(path)
-            super().__init__(path, **kwargs)
+        __cdll_init__(
+            self,
+            name,
+            mode=mode,
+            handle=handle,
+            use_errno=use_errno,
+            use_last_error=use_last_error,
+            winmode=winmode,
+        )
 
-    ctypes.CDLL = MagicCDLL
+    ctypes.CDLL.__init__ = __magic_init__
 
 __all__ = ("__version__", "data", "keys")
