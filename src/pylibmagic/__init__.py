@@ -51,27 +51,52 @@ if sys.platform == "linux":
 
     setattr(ctypes.CDLL, "__init_orig__", ctypes.CDLL.__init__)  # noqa: B010
 
-    def __magic_init__(
-        self: ctypes.CDLL,
-        name: str | None,
-        mode: int = ctypes.DEFAULT_MODE,
-        handle: int | None = None,
-        use_errno: bool = False,
-        use_last_error: bool = False,
-        winmode: int | None = None,
-    ) -> None:
-        if name:
-            path = data / name
-            if path.is_file():
-                name = str(path)
-        self.__init_orig__(
-            name,
-            mode=mode,
-            handle=handle,
-            use_errno=use_errno,
-            use_last_error=use_last_error,
-            winmode=winmode,
-        )
+    # for python 3.7
+    if sys.version_info < (3, 8):
+
+        def __magic_init__(
+            self: ctypes.CDLL,
+            name: str | None,
+            mode: int = ctypes.DEFAULT_MODE,
+            handle: int | None = None,
+            use_errno: bool = False,
+            use_last_error: bool = False,
+        ) -> None:
+            if name:
+                path = data / name
+                if path.is_file():
+                    name = str(path)
+            self.__init_orig__(
+                name,
+                mode=mode,
+                handle=handle,
+                use_errno=use_errno,
+                use_last_error=use_last_error,
+            )
+
+    else:
+
+        def __magic_init__(
+            self: ctypes.CDLL,
+            name: str | None,
+            mode: int = ctypes.DEFAULT_MODE,
+            handle: int | None = None,
+            use_errno: bool = False,
+            use_last_error: bool = False,
+            winmode: int | None = None,
+        ) -> None:
+            if name:
+                path = data / name
+                if path.is_file():
+                    name = str(path)
+            self.__init_orig__(
+                name,
+                mode=mode,
+                handle=handle,
+                use_errno=use_errno,
+                use_last_error=use_last_error,
+                winmode=winmode,
+            )
 
     setattr(ctypes.CDLL, "__init__", __magic_init__)  # noqa: B010
 
