@@ -39,4 +39,4 @@ os.environ[
     "MAGIC"
 ] = f"{data.joinpath('magic.mgc')}{os.pathsep}{os.environ.get('MAGIC', '')}"
 
-__all__ = ("__version__", "data")
+__all__ = ("__version__", "data", "keys")
