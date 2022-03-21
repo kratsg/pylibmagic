@@ -1,9 +1,6 @@
 from __future__ import annotations
 
-import importlib
 from ctypes.util import find_library
-
-import pytest
 
 import pylibmagic
 
@@ -28,15 +25,6 @@ def test_run_magic_fail(monkeypatch):
 def test_find_library():
     lib_path = find_library("magic")
     assert lib_path is not None
-
-
-def test_import_magic_fail(monkeypatch):
-    import magic
-
-    for key in pylibmagic.keys:
-        monkeypatch.delenv(key, raising=True)
-    with pytest.raises(ImportError):
-        importlib.reload(magic)
 
 
 def test_import_magic():

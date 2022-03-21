@@ -49,7 +49,7 @@ os.environ[
 # since reasonable, rational people expect consistency across platforms in python... but ok...
 if sys.platform == "linux":
 
-    __cdll_init__ = ctypes.CDLL.__init__
+    setattr(ctypes.CDLL, "__init_orig__", ctypes.CDLL.__init__)  # noqa: B010
 
     def __magic_init__(
         self: ctypes.CDLL,
@@ -64,8 +64,7 @@ if sys.platform == "linux":
             path = data / name
             if path.is_file():
                 name = str(path)
-        __cdll_init__(
-            self,
+        self.__init_orig__(
             name,
             mode=mode,
             handle=handle,
@@ -74,6 +73,6 @@ if sys.platform == "linux":
             winmode=winmode,
         )
 
-    setattr(ctypes.CDLL, "__init__", "__magic_init__")  # noqa: B010
+    setattr(ctypes.CDLL, "__init__", __magic_init__)  # noqa: B010
 
 __all__ = ("__version__", "data", "keys")

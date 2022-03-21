@@ -92,4 +92,6 @@ jobs:
         sudo apt remove -y file libmagic-mgc libmagic1
 
     - name: Test package
-      run: python -m pytest -ra
+      run: |
+        python -m pytest -ra -m 'not isolate'
+        python -m pytest -ra tests/test_import.py

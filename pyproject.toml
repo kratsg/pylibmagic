@@ -35,6 +35,9 @@ filterwarnings = ["error"]
 testpaths = [
     "tests",
 ]
+markers = [
+    "isolate",
+]
 
 
 [tool.pycln]
