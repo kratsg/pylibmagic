@@ -28,7 +28,6 @@ def test_run_magic_fail(monkeypatch):
 def test_find_library():
     lib_path = find_library("magic")
     assert lib_path is not None
-    assert lib_path.startswith(str(pylibmagic.data))
 
 
 def test_import_magic_fail(monkeypatch):
