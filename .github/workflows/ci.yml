@@ -90,8 +90,6 @@ jobs:
       if: matrix.sys.os == 'ubuntu-latest'
       run: |
         sudo apt remove -y file libmagic-mgc libmagic1
-        sudo rm /etc/ld.so.cache
-        sudo ldconfig
 
     - name: Test package
       run: python -m pytest -ra

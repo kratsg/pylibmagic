@@ -7,6 +7,7 @@ pylibmagic: scikit-build project with CMake for compiling libmagic
 
 from __future__ import annotations
 
+import ctypes
 import os
 import sys
 
@@ -38,5 +39,19 @@ for key in keys:
 os.environ[
     "MAGIC"
 ] = f"{data.joinpath('magic.mgc')}{os.pathsep}{os.environ.get('MAGIC', '')}"
+
+# linux is buggy, it does not return full paths via find_library
+# and python-magic hard-codes this as well:
+#   https://github.com/ahupp/python-magic/blob/0fb1922da4a7b27bd19b75a03dca2f51bff4362f/magic/loader.py#L32-L34
+if sys.platform == "linux":
+
+    class MagicCDLL(ctypes.CDLL):
+        def __init__(self, name, **kwargs):
+            path = data / name
+            if path.is_file():
+                name = str(path)
+            super().__init__(path, **kwargs)
+
+    ctypes.CDLL = MagicCDLL
 
 __all__ = ("__version__", "data", "keys")
