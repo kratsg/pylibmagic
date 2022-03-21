@@ -74,6 +74,6 @@ if sys.platform == "linux":
             winmode=winmode,
         )
 
-    ctypes.CDLL.__init__ = __magic_init__
+    setattr(ctypes.CDLL, "__init__", "__magic_init__")  # noqa: B010
 
 __all__ = ("__version__", "data", "keys")
