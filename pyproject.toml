@@ -29,11 +29,14 @@ before-all = "brew install autoconf automake libtool"
 
 [tool.pytest.ini_options]
 minversion = "6.0"
-addopts = ["-ra", "--showlocals", "--strict-markers", "--strict-config"]
+addopts = ["-ra", "--showlocals", "--strict-markers", "--strict-config", "-m", "not isolate"]
 xfail_strict = true
 filterwarnings = ["error"]
 testpaths = [
     "tests",
+]
+markers = [
+    "isolate",
 ]
 
 

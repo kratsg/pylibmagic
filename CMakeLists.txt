@@ -14,7 +14,7 @@ ExternalProject_Add(libmagic
     GIT_TAG FILE5_41
     PREFIX ${libmagic_PREFIX}
     BUILD_IN_SOURCE 1
-    CONFIGURE_COMMAND autoreconf -f -i && ./configure --prefix=<INSTALL_DIR> --libdir=<INSTALL_DIR>/${CMAKE_INSTALL_LIBDIR}
+    CONFIGURE_COMMAND autoreconf -f -i && ./configure --prefix=<INSTALL_DIR> --libdir=<INSTALL_DIR>/${CMAKE_INSTALL_LIBDIR} --datadir=<INSTALL_DIR>/${CMAKE_INSTALL_DATADIR}
     BUILD_COMMAND ${MAKE_EXE}
     INSTALL_COMMAND ${MAKE_EXE}
 )
@@ -27,16 +27,9 @@ if(SKBUILD)
     ${pylibmagic_BINARY_DIR}/${libmagic_PREFIX}/${CMAKE_INSTALL_LIBDIR}/
     DESTINATION .
   )
-
-  # install the python files too
-  # install(DIRECTORY
-  #   ${PROJECT_SOURCE_DIR}/src/pylibmagic/
-  #   DESTINATION .
-  #   FILES_MATCHING
-  #   PATTERN "__init__.py"
-  #   PATTERN "py.typed"
-  #   PATTERN "*.py"
-  #   PATTERN "*.pyi"
-  #   PATTERN "__pycache__" EXCLUDE
-  # )
+  # Note: ./configure has pkgdatadir hardcoded as '$(datadir)/misc'
+  install(FILES
+    ${pylibmagic_BINARY_DIR}/${libmagic_PREFIX}/${CMAKE_INSTALL_DATADIR}/misc/magic.mgc
+    DESTINATION .
+  )
 endif()
