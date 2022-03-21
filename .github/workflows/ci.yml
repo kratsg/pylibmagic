@@ -91,7 +91,7 @@ jobs:
       run: |
         sudo apt remove -y file libmagic-mgc libmagic1
         sudo rm /etc/ld.so.cache
-        ldconfig
+        sudo ldconfig
 
     - name: Test package
       run: python -m pytest -ra
