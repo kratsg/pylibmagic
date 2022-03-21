@@ -35,4 +35,8 @@ if not keys:
 for key in keys:
     os.environ[key] = f"{data}{os.pathsep}{os.environ.get(key, '')}"
 
+os.environ[
+    "MAGIC"
+] = f"{data.joinpath('magic.mgc')}{os.pathsep}{os.environ.get('MAGIC', '')}"
+
 __all__ = ("__version__", "data")
