@@ -43,6 +43,10 @@ os.environ[
 # linux is buggy, it does not return full paths via find_library
 # and python-magic hard-codes this as well:
 #   https://github.com/ahupp/python-magic/blob/0fb1922da4a7b27bd19b75a03dca2f51bff4362f/magic/loader.py#L32-L34
+# But we shouldn't blame python-magic here. We should blame python:
+#   - https://bugs.python.org/issue18502
+#   - https://bugs.python.org/issue21042
+# since reasonable, rational people expect consistency across platforms in python... but ok...
 if sys.platform == "linux":
 
     class MagicCDLL(ctypes.CDLL):
