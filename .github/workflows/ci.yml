@@ -86,9 +86,12 @@ jobs:
     - name: Install package
       run: python -m pip install -e .[test]
 
-    - name: Uninstall file (linux)
+    - name: Uninstall magic (linux)
       if: matrix.sys.os == 'ubuntu-latest'
-      run: sudo apt remove -y file libmagic-mgc libmagic1
+      run: >-
+        sudo apt remove -y file libmagic-mgc libmagic1
+        sudo rm /etc/ld.so.cache
+        ldconfig
 
     - name: Test package
       run: python -m pytest -ra
