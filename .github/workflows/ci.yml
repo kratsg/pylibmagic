@@ -88,7 +88,7 @@ jobs:
 
     - name: Uninstall file (linux)
       if: matrix.sys.os == 'ubuntu-latest'
-      run: apt remove -y file
+      run: sudo apt remove -y file
 
     - name: Test package
       run: python -m pytest -ra
