@@ -22,6 +22,11 @@ else()
     message(STATUS "Found autoreconf: ${AUTORECONF}")
 endif()
 
+if(DEFINED ENV{GHA_WINDOWS})
+    set(AUTORECONF "${AUTORECONF}.exe")
+    message(STATUS "Setting to: ${AUTORECONF}")
+endif()
+
 
 include(GNUInstallDirs)
 include(ExternalProject)
