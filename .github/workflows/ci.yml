@@ -94,6 +94,11 @@ jobs:
         which python
         python --version
 
+    - name: Check CMake configuration
+      run: |
+        cmake -S . -B build
+        rm -rf build
+
     - name: Install package
       if: matrix.sys.os != 'windows-latest'
       run: python -m pip install -e .[test]
