@@ -32,7 +32,7 @@ ExternalProject_Add(libmagic
     BUILD_IN_SOURCE 1
     CONFIGURE_COMMAND ${AUTORECONF} -f -i && ./configure --prefix=<INSTALL_DIR> --libdir=<INSTALL_DIR>/${CMAKE_INSTALL_LIBDIR} --datadir=<INSTALL_DIR>/${CMAKE_INSTALL_DATADIR}
     BUILD_COMMAND ${MAKE_EXE}
-    INSTALL_COMMAND ${MAKE_EXE}
+    INSTALL_COMMAND ${MAKE_EXE} install
 )
 
 if(SKBUILD)
