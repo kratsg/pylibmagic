@@ -7,13 +7,6 @@ set(CMAKE_MACOSX_RPATH 1)
 
 set(libmagic_PREFIX libmagic)
 
-find_program(AUTORECONF NAMES autoreconf)
-if (NOT AUTORECONF)
-    message(FATAL_ERROR "Autoreconf not found")
-else()
-    message(STATUS "Found autoreconf: ${AUTORECONF}")
-endif()
-
 find_program(MAKE_EXE NAMES make gmake nmake)
 if (NOT MAKE_EXE)
     message(FATAL_ERROR "make not found")
