@@ -106,6 +106,8 @@ jobs:
     - name: Install package
       if: matrix.sys.os == 'windows-latest'
       run: |
+        dir D:/a/_temp/msys64/usr/bin/
+        ls D:/a/_temp/msys64/usr/bin/
         export PATH="/mingw64/bin:/usr/bin:/bin:/usr/local/bin:/opt/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:$PATH"
         python -m pip install -e .[test]
 
