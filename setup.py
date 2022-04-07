@@ -11,6 +11,6 @@ from skbuild import setup  # isort:skip
 setup(
     packages=["pylibmagic"],
     package_dir={"": "src"},
-    cmake_install_dir="src/pylibmagic",
-    include_package_data=False,  # see scikit-build/scikit-build#680
+    cmake_install_dir="myinstall",
+    include_package_data=True,  # see scikit-build/scikit-build#680
 )
