@@ -4,6 +4,9 @@ project(pylibmagic VERSION 0.2.0 DESCRIPTION "Library for compiling libmagic usi
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_MACOSX_RPATH 1)
+if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+    set(CMAKE_C_FLAGS "-arch x86_64 -arch arm64")
+endif()
 
 set(libmagic_PREFIX libmagic)
 
@@ -14,7 +17,7 @@ ExternalProject_Add(libmagic
     GIT_TAG FILE5_41
     PREFIX ${libmagic_PREFIX}
     BUILD_IN_SOURCE 1
-    CONFIGURE_COMMAND autoreconf -f -i && ./configure --prefix=<INSTALL_DIR> --libdir=<INSTALL_DIR>/${CMAKE_INSTALL_LIBDIR} --datadir=<INSTALL_DIR>/${CMAKE_INSTALL_DATADIR}
+    CONFIGURE_COMMAND autoreconf -f -i && ./configure --prefix=<INSTALL_DIR> --libdir=<INSTALL_DIR>/${CMAKE_INSTALL_LIBDIR} --datadir=<INSTALL_DIR>/${CMAKE_INSTALL_DATADIR} CFLAGS=${CMAKE_C_FLAGS}
     BUILD_COMMAND ${MAKE_EXE}
     INSTALL_COMMAND ${MAKE_EXE}
 )
