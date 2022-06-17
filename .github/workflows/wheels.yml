@@ -36,7 +36,7 @@ jobs:
       with:
         fetch-depth: 0
 
-    - uses: pypa/cibuildwheel@2.6.0
+    - uses: pypa/cibuildwheel@2.7.0
 
     - name: Upload wheels
       uses: actions/upload-artifact@v2
