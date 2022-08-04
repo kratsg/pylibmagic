@@ -9,30 +9,20 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 endif()
 
 set(libmagic_PREFIX libmagic)
+set(libmagic_INSTALL_PREFIX ${pylibmagic_BINARY_DIR}/${libmagic_PREFIX}/src/${libmagic_PREFIX}-install)
 
 include(GNUInstallDirs)
 include(ExternalProject)
 ExternalProject_Add(libmagic
-    GIT_REPOSITORY https://github.com/file/file.git
-    GIT_TAG FILE5_41
+    GIT_REPOSITORY https://github.com/kratsg/file.git
+    GIT_TAG feat/cmakelists
     PREFIX ${libmagic_PREFIX}
-    BUILD_IN_SOURCE 1
-    CONFIGURE_COMMAND autoreconf -f -i && ./configure --prefix=<INSTALL_DIR> --libdir=<INSTALL_DIR>/${CMAKE_INSTALL_LIBDIR} --datadir=<INSTALL_DIR>/${CMAKE_INSTALL_DATADIR} CFLAGS=${CMAKE_C_FLAGS}
-    BUILD_COMMAND ${MAKE_EXE}
-    INSTALL_COMMAND ${MAKE_EXE}
+    CMAKE_ARGS -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR> -DCMAKE_C_FLAGS=${CMAKE_C_FLAGS}
 )
 
 if(SKBUILD)
   message(STATUS "The project is built using scikit-build")
 
   # install libmagic libraries
-  install(DIRECTORY
-    ${pylibmagic_BINARY_DIR}/${libmagic_PREFIX}/${CMAKE_INSTALL_LIBDIR}/
-    DESTINATION .
-  )
-  # Note: ./configure has pkgdatadir hardcoded as '$(datadir)/misc'
-  install(FILES
-    ${pylibmagic_BINARY_DIR}/${libmagic_PREFIX}/${CMAKE_INSTALL_DATADIR}/misc/magic.mgc
-    DESTINATION .
-  )
+  install(DIRECTORY ${PROJECT_BINARY_DIR}/${libmagic_PREFIX}/${CMAKE_INSTALL_LIBDIR} DESTINATION .)
 endif()
