@@ -36,7 +36,7 @@ jobs:
       with:
         fetch-depth: 0
 
-    - uses: pypa/cibuildwheel@v2.10.0
+    - uses: pypa/cibuildwheel@v2.10.1
       env:
         # Use platform specific environment variable to build x86_64 and universal2 wheels for OSX
         CIBW_ARCHS_MACOS: x86_64 universal2
