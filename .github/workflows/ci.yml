@@ -5,9 +5,9 @@ on:
   pull_request:
   push:
     branches:
-    - master
-    - main
-    - develop
+      - master
+      - main
+      - develop
 
 concurrency:
   group: ${ github.workflow }-${ github.head_ref }
@@ -18,15 +18,15 @@ jobs:
     name: Format
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-python@v4
-    - uses: pre-commit/action@v3.0.0
-      with:
-        extra_args: --hook-stage manual --all-files
-    - name: Run PyLint
-      run: |
-        echo "::add-matcher::$GITHUB_WORKSPACE/.github/matchers/pylint.json"
-        pipx run nox -s pylint
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+      - uses: pre-commit/action@v3.0.0
+        with:
+          extra_args: --hook-stage manual --all-files
+      - name: Run PyLint
+        run: |
+          echo "::add-matcher::$GITHUB_WORKSPACE/.github/matchers/pylint.json"
+          pipx run nox -s pylint
 
   checks:
     name: Check Python ${{ matrix.python-version }} on ${{ matrix.sys.os }}
@@ -43,61 +43,57 @@ jobs:
         experimental: [false]
 
         include:
-        - python-version: pypy-3.7
-          sys: { os: ubuntu-latest, shell: bash }
-          experimental: false
-        - python-version: "3.9"
-          sys: { os: windows-latest, shell: 'msys2 {0}' }
-          experimental: true
+          - python-version: pypy-3.7
+            sys: { os: ubuntu-latest, shell: bash }
+            experimental: false
+          - python-version: "3.9"
+            sys: { os: windows-latest, shell: "msys2 {0}" }
+            experimental: true
 
     defaults:
       run:
         shell: ${{ matrix.sys.shell }}
 
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - uses: msys2/setup-msys2@v2
-      if: matrix.sys.os == 'windows-latest'
-      with:
-        update: true
-        install: >-
-          mingw-w64-x86_64-git
-          mingw-w64-x86_64-autotools
-          mingw-w64-x86_64-cmake
-          mingw-w64-x86_64-gcc
-          mingw-w64-x86_64-make
-          mingw-w64-x86_64-python-pip
-          mingw-w64-x86_64-python-pytest
-          mingw-w64-x86_64-ninja
+      - uses: msys2/setup-msys2@v2
+        if: matrix.sys.os == 'windows-latest'
+        with:
+          update: true
+          install: >-
+            mingw-w64-x86_64-git mingw-w64-x86_64-autotools
+            mingw-w64-x86_64-cmake mingw-w64-x86_64-gcc mingw-w64-x86_64-make
+            mingw-w64-x86_64-python-pip mingw-w64-x86_64-python-pytest
+            mingw-w64-x86_64-ninja
 
-    - name: Install build tools (macos-latest)
-      if: matrix.sys.os == 'macos-latest'
-      run: brew install autoconf automake libtool
+      - name: Install build tools (macos-latest)
+        if: matrix.sys.os == 'macos-latest'
+        run: brew install autoconf automake libtool
 
-    - uses: actions/setup-python@v4
-      if: matrix.sys.os != 'windows-latest'
-      with:
-        python-version: ${{ matrix.python-version }}
+      - uses: actions/setup-python@v4
+        if: matrix.sys.os != 'windows-latest'
+        with:
+          python-version: ${{ matrix.python-version }}
 
-    - name: Check build tools
-      run: |
-        which cmake
-        which make
-        which autoreconf
-        which python
+      - name: Check build tools
+        run: |
+          which cmake
+          which make
+          which autoreconf
+          which python
 
-    - name: Install package
-      run: |
-        python -m pip install -U pip setuptools
-        python -m pip install .[test]
+      - name: Install package
+        run: |
+          python -m pip install -U pip setuptools
+          python -m pip install .[test]
 
-    - name: Uninstall magic (linux)
-      if: matrix.sys.os == 'ubuntu-latest'
-      run: |
-        sudo apt remove -y file libmagic-mgc libmagic1
+      - name: Uninstall magic (linux)
+        if: matrix.sys.os == 'ubuntu-latest'
+        run: |
+          sudo apt remove -y file libmagic-mgc libmagic1
 
-    - name: Test package
-      run: |
-        python -m pytest -ra
-        python -m pytest -ra -m 'isolate' tests/test_import.py
+      - name: Test package
+        run: |
+          python -m pytest -ra
+          python -m pytest -ra -m 'isolate' tests/test_import.py

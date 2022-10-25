@@ -96,6 +96,7 @@ repos:
       - id: mypy
         files: src
         args: [--show-error-codes]
+        additional_dependencies: ["importlib_resources"]
 
   - repo: https://github.com/codespell-project/codespell
     rev: v2.1.0
