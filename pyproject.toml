@@ -37,6 +37,7 @@ testpaths = [
 markers = [
     "isolate",
 ]
+log_cli_level = "INFO"
 
 
 [tool.pycln]
