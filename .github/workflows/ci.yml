@@ -42,8 +42,7 @@ jobs:
           - { os: macos-latest, shell: bash }
         experimental: [false]
         exclude:
-          - os: macos-latest
-            shell: bash
+          - sys: { os: macos-latest, shell: bash }
             python-version: 3.11
 
         include:
