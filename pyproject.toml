@@ -2,7 +2,7 @@
 requires = [
     "setuptools>=42",
     "setuptools_scm[toml]>=3.4",
-    "scikit-build",
+    "scikit-build @ git+https://github.com/scikit-build/scikit-build",
     "cmake",
     "ninja; platform_system!='Windows'"
 ]
