@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - uses: actions/setup-python@v2
+    - uses: actions/setup-python@v4
     - uses: pre-commit/action@v3.0.0
       with:
         extra_args: --hook-stage manual --all-files
@@ -71,7 +71,7 @@ jobs:
       if: matrix.sys.os == 'macos-latest'
       run: brew install autoconf automake libtool
 
-    - uses: actions/setup-python@v2
+    - uses: actions/setup-python@v4
       if: matrix.sys.os != 'windows-latest'
       with:
         python-version: ${{ matrix.python-version }}
