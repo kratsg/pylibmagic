@@ -1,106 +1,123 @@
+ci:
+  autoupdate_commit_msg: "chore: update pre-commit hooks"
+
 repos:
-- repo: https://github.com/psf/black
-  rev: 22.3.0
-  hooks:
-  - id: black-jupyter
+  - repo: https://github.com/psf/black
+    rev: 22.3.0
+    hooks:
+      - id: black-jupyter
 
-- repo: https://github.com/pre-commit/pre-commit-hooks
-  rev: v4.1.0
-  hooks:
-  - id: check-added-large-files
-  - id: check-case-conflict
-  - id: check-merge-conflict
-  - id: check-symlinks
-  - id: check-yaml
-  - id: debug-statements
-  - id: end-of-file-fixer
-  - id: mixed-line-ending
-  - id: requirements-txt-fixer
-  - id: trailing-whitespace
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.1.0
+    hooks:
+      - id: check-added-large-files
+      - id: check-case-conflict
+      - id: check-merge-conflict
+      - id: check-symlinks
+      - id: check-yaml
+      - id: debug-statements
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+      - id: requirements-txt-fixer
+      - id: trailing-whitespace
 
-- repo: https://github.com/pre-commit/pygrep-hooks
-  rev: v1.9.0
-  hooks:
-  - id: python-check-blanket-noqa
-  - id: python-check-blanket-type-ignore
-  - id: python-no-eval
-  - id: python-use-type-annotations
-  - id: rst-backticks
-  - id: rst-directive-colons
-  - id: rst-inline-touching-normal
+  - repo: https://github.com/pre-commit/pygrep-hooks
+    rev: v1.9.0
+    hooks:
+      - id: python-check-blanket-noqa
+      - id: python-check-blanket-type-ignore
+      - id: python-no-eval
+      - id: python-use-type-annotations
+      - id: rst-backticks
+      - id: rst-directive-colons
+      - id: rst-inline-touching-normal
 
-- repo: https://github.com/PyCQA/isort
-  rev: 5.10.1
-  hooks:
-  - id: isort
-    args: ["-a", "from __future__ import annotations"]  # Python 3.7+
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: "v2.7.1"
+    hooks:
+      - id: prettier
+        types_or: [yaml, markdown, html, css, scss, javascript, json]
+        args: [--prose-wrap=always]
 
-- repo: https://github.com/asottile/pyupgrade
-  rev: v2.31.1
-  hooks:
-  - id: pyupgrade
-    args: ["--py37-plus"]
+  - repo: https://github.com/asottile/blacken-docs
+    rev: v1.12.1
+    hooks:
+      - id: blacken-docs
+        additional_dependencies: [black==22.8.0]
 
-- repo: https://github.com/asottile/setup-cfg-fmt
-  rev: v1.20.0
-  hooks:
-  - id: setup-cfg-fmt
+  - repo: https://github.com/PyCQA/isort
+    rev: 5.10.1
+    hooks:
+      - id: isort
+        args: ["-a", "from __future__ import annotations"] # Python 3.7+
 
-- repo: https://github.com/pre-commit/mirrors-clang-format
-  rev: v13.0.1
-  hooks:
-   - id: clang-format
-     types_or: [c++, c, cuda]
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v2.31.1
+    hooks:
+      - id: pyupgrade
+        args: ["--py37-plus"]
 
-- repo: https://github.com/hadialqattan/pycln
-  rev: v1.2.5
-  hooks:
-  - id: pycln
-    args: [--config=pyproject.toml]
+  - repo: https://github.com/asottile/setup-cfg-fmt
+    rev: v1.20.0
+    hooks:
+      - id: setup-cfg-fmt
 
-- repo: https://github.com/asottile/yesqa
-  rev: v1.3.0
-  hooks:
-  - id: yesqa
-    exclude: docs/conf.py
-    additional_dependencies: &flake8_dependencies
-      - flake8-bugbear
-      - flake8-print
+  - repo: https://github.com/pre-commit/mirrors-clang-format
+    rev: v13.0.1
+    hooks:
+      - id: clang-format
+        types_or: [c++, c, cuda]
 
-- repo: https://github.com/pycqa/flake8
-  rev: 4.0.1
-  hooks:
-  - id: flake8
-    exclude: docs/conf.py
-    additional_dependencies: *flake8_dependencies
+  - repo: https://github.com/hadialqattan/pycln
+    rev: v1.2.5
+    hooks:
+      - id: pycln
+        args: [--config=pyproject.toml]
 
-- repo: https://github.com/pre-commit/mirrors-mypy
-  rev: v0.941
-  hooks:
-  - id: mypy
-    files: src
-    args: [--show-error-codes]
+  - repo: https://github.com/asottile/yesqa
+    rev: v1.3.0
+    hooks:
+      - id: yesqa
+        exclude: docs/conf.py
+        additional_dependencies: &flake8_dependencies
+          - flake8-bugbear
+          - flake8-print
 
-- repo: https://github.com/codespell-project/codespell
-  rev: v2.1.0
-  hooks:
-  - id: codespell
+  - repo: https://github.com/pycqa/flake8
+    rev: 4.0.1
+    hooks:
+      - id: flake8
+        exclude: docs/conf.py
+        additional_dependencies: *flake8_dependencies
 
-- repo: https://github.com/shellcheck-py/shellcheck-py
-  rev: v0.8.0.4
-  hooks:
-  - id: shellcheck
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v0.941
+    hooks:
+      - id: mypy
+        files: src
+        args: [--show-error-codes]
+        additional_dependencies: ["importlib_resources"]
 
-- repo: local
-  hooks:
-  - id: disallow-caps
-    name: Disallow improper capitalization
-    language: pygrep
-    entry: PyBind|Numpy|Cmake|CCache|Github|PyTest
-    exclude: .pre-commit-config.yaml
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.1.0
+    hooks:
+      - id: codespell
 
-- repo: https://github.com/mgedmin/check-manifest
-  rev: "0.48"
-  hooks:
-  - id: check-manifest
-    stages: [manual]
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.8.0.4
+    hooks:
+      - id: shellcheck
+
+  - repo: local
+    hooks:
+      - id: disallow-caps
+        name: Disallow improper capitalization
+        language: pygrep
+        entry: PyBind|Numpy|Cmake|CCache|Github|PyTest
+        exclude: .pre-commit-config.yaml
+
+  - repo: https://github.com/mgedmin/check-manifest
+    rev: "0.48"
+    hooks:
+      - id: check-manifest
+        stages: [manual]
