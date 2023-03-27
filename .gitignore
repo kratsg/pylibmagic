@@ -1,3 +1,9 @@
+# Our stuff
+.DS_Store
+output/
+*~
+*.swp
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -20,7 +26,6 @@ parts/
 sdist/
 var/
 wheels/
-wheelhouse/
 share/python-wheels/
 *.egg-info/
 .installed.cfg
@@ -138,7 +143,7 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
-# setuptools_scm
+# setuptools_scm / hatch-vcs
 src/*/_version.py
 
 # CMake related

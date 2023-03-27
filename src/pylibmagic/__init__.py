@@ -31,7 +31,8 @@ elif os.name == "posix":
     keys = ["LIBRARY_PATH", "LD_LIBRARY_PATH"]
 
 if not keys:
-    raise OSError(f"{os.name} / {sys.platform} not supported yet.")
+    msg = f"{os.name} / {sys.platform} not supported yet."
+    raise OSError(msg)
 
 for key in keys:
     os.environ[key] = f"{data}{os.pathsep}{os.environ.get(key, '')}"
@@ -48,7 +49,6 @@ os.environ[
 #   - https://bugs.python.org/issue21042
 # since reasonable, rational people expect consistency across platforms in python... but ok...
 if sys.platform == "linux":
-
     setattr(ctypes.CDLL, "__init_orig__", ctypes.CDLL.__init__)  # noqa: B010
 
     # for python 3.7
