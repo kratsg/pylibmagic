@@ -36,10 +36,12 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: pypa/cibuildwheel@v2.12.1
+      - uses: pypa/cibuildwheel@v2.12.3
         env:
           # Use platform specific environment variable to build x86_64 and universal2 wheels for OSX
-          CIBW_ARCHS_MACOS: x86_64 arm64 universal2
+          CIBW_ARCHS_MACOS: "x86_64 arm64 universal2"
+          # Use platform specific environment variable to build aarch64 for Linux
+          CIBW_ARCHS_LINUX: "auto aarch64"
 
       - name: Upload wheels
         uses: actions/upload-artifact@v3

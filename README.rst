@@ -1,4 +1,4 @@
-pylibmagic v0.2.2
+pylibmagic v0.3.1
 =================
 
 A lightweight, minimal python package that ships ``magic`` libraries
