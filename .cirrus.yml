@@ -3,7 +3,7 @@ build_and_store_wheels: &BUILD_AND_STORE_WHEELS
     - python -m pip install cibuildwheel==2.12.3
   run_cibuildwheel_script:
     - cibuildwheel
-  wheels_artifacts:
+  binary_artifacts:
     path: "wheelhouse/*"
 
 linux_x86_task:
