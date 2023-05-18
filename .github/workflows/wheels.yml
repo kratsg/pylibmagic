@@ -70,7 +70,7 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: ${{ matrix.name }}
-          path: wheelhouse/*.whl
+          path: dist/*.whl
 
   merge_all:
     needs: [build_wheels, make_sdist, download_cirrus]
