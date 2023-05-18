@@ -20,6 +20,7 @@ jobs:
 
       - uses: actions/upload-artifact@v3
         with:
+          name: dist
           path: dist/*.tar.gz
 
   build_wheels:
@@ -81,7 +82,13 @@ jobs:
     steps:
       - uses: actions/download-artifact@v3
         with:
-          path: dist
+          path: artifacts
+
+      - name: Merge all artifacts into dist/
+        run: |
+          mkdir dist
+          find artifacts -type f -exec mv -t dist {} +
+          ls -lavh dist
 
       - uses: pypa/gh-action-pypi-publish@v1.8.6
         with:
