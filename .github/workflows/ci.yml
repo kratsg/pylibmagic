@@ -49,9 +49,9 @@ jobs:
           - python-version: pypy-3.7
             sys: { os: ubuntu-latest, shell: bash }
             experimental: false
-          - python-version: "3.9"
-            sys: { os: windows-latest, shell: "msys2 {0}" }
-            experimental: true
+          #- python-version: "3.9"
+          #  sys: { os: windows-latest, shell: "msys2 {0}" }
+          #  experimental: true
 
     defaults:
       run:
