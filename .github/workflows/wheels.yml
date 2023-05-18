@@ -73,47 +73,14 @@ jobs:
           name: ${{ matrix.name }}
           path: wheelhouse/*.whl
 
-  merge_all:
-    needs: [build_wheels, make_sdist, download_cirrus]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/download-artifact@v3
-        with:
-          path: artifacts
-
-      - name: Display structure of downloaded files
-        run: ls -R
-        working-directory: artifacts
-
-      - name: Move all wheels into dist
-        run: |
-          mkdir dist
-          find artifacts -type f -exec mv -t dist {} +
-          ls -lavh dist
-
-      - uses: actions/upload-artifact@v3
-        with:
-          name: artifacts
-          path: dist
-
-      - uses: actions/download-artifact@v3
-        with:
-          name: artifacts
-          path: newartifacts
-
-      - name: Display structure of downloaded files
-        run: ls -R
-        working-directory: newartifacts
-
   upload_all:
-    needs: [merge_all]
+    needs: [build_wheels, make_sdist, download_cirrus]
     runs-on: ubuntu-latest
     if: github.event_name == 'release' && github.event.action == 'published'
 
     steps:
       - uses: actions/download-artifact@v3
         with:
-          name: artifacts
           path: dist
 
       - uses: pypa/gh-action-pypi-publish@v1.8.5
