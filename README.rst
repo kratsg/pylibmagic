@@ -4,7 +4,7 @@ pylibmagic v0.3.1
 A lightweight, minimal python package that ships ``magic`` libraries
 using automake, CMake, scikit-build, and cibuildwheel.
 
-|Actions Status| |Documentation Status| |Code style: black|
+|Actions Status| |Cirrus Status| |Documentation Status| |Code style: black|
 
 |PyPI version| |Conda-Forge| |PyPI platforms|
 
@@ -65,6 +65,8 @@ and the libraries are installed at
 
 .. |Actions Status| image:: https://github.com/kratsg/pylibmagic/workflows/CI/badge.svg
    :target: https://github.com/kratsg/pylibmagic/actions
+.. |Cirrus State| image:: https://api.cirrus-ci.com/github/kratsg/pylibmagic.svg?branch=main
+   :target: https://cirrus-ci.com/github/kratsg/pylibmagic
 .. |Documentation Status| image:: https://readthedocs.org/projects/pylibmagic/badge/?version=latest
    :target: https://pylibmagic.readthedocs.io/en/latest/?badge=latest
 .. |Code style: black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
