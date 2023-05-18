@@ -33,18 +33,18 @@ linux_aarch64_task:
     - apt install -y python3-venv python-is-python3
   <<: *BUILD_AND_STORE_WHEELS
 
-windows_x86_task:
-  name: Build Windows x86 wheels.
-  windows_container:
-    image: cirrusci/windowsservercore:visualstudio2022
-    cpu: 4
-    memory: 4G
-
-  install_pre_requirements_script:
-    - choco install -y --no-progress python3 --version 3.10.6
-    - refreshenv
-    - echo PATH=%PATH% >> "%CIRRUS_ENV%"
-  <<: *BUILD_AND_STORE_WHEELS
+#windows_x86_task:
+#  name: Build Windows x86 wheels.
+#  windows_container:
+#    image: cirrusci/windowsservercore:visualstudio2022
+#    cpu: 4
+#    memory: 4G
+#
+#  install_pre_requirements_script:
+#    - choco install -y --no-progress python3 --version 3.10.6
+#    - refreshenv
+#    - echo PATH=%PATH% >> "%CIRRUS_ENV%"
+#  <<: *BUILD_AND_STORE_WHEELS
 
 macos_arm64_task:
   name: Build macOS arm64 wheels.
