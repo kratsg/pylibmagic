@@ -49,6 +49,9 @@ jobs:
 
   download_cirrus:
     if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      checks: read
     strategy:
       matrix:
         include:
@@ -58,9 +61,6 @@ jobs:
             name: linux-aarch64
           - task: Build macOS arm64 wheels.
             name: macos-arm64
-      runs-on: ubuntu-latest
-      permissions:
-        checks: read
     steps:
       - uses: getsentry/action-wait-for-cirrus@v1.0.0
         with:
