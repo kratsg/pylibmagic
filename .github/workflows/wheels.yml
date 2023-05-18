@@ -28,7 +28,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: [macos-latest] # all others built via Cirrus CI (including macos arm64)
         #os: [ubuntu-latest, windows-latest, macos-latest]
 
     steps:
@@ -39,24 +39,48 @@ jobs:
       - uses: pypa/cibuildwheel@v2.12.3
         env:
           # Use platform specific environment variable to build x86_64 and universal2 wheels for OSX
-          CIBW_ARCHS_MACOS: "x86_64 arm64 universal2"
-          # Use platform specific environment variable to build aarch64 for Linux
-          CIBW_ARCHS_LINUX: "auto aarch64"
+          CIBW_ARCHS_MACOS: "x86_64 universal2"
 
       - name: Upload wheels
         uses: actions/upload-artifact@v3
         with:
+          name: macos-x86
+          path: wheelhouse/*.whl
+
+  download_cirrus:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      checks: read
+    strategy:
+      matrix:
+        include:
+          - task: Build Linux x86 wheels.
+            name: linux-x86
+          - task: Build Linux aarch64 wheels.
+            name: linux-aarch64
+          - task: Build macOS arm64 wheels.
+            name: macos-arm64
+    steps:
+      - uses: getsentry/action-wait-for-cirrus@v1.0.0
+        with:
+          task: ${{ matrix.task }}
+          dest: wheelhouse
+        timeout-minutes: 30
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: ${{ matrix.name }}
           path: wheelhouse/*.whl
 
   upload_all:
-    needs: [build_wheels, make_sdist]
+    needs: [build_wheels, make_sdist, download_cirrus]
     runs-on: ubuntu-latest
     if: github.event_name == 'release' && github.event.action == 'published'
 
     steps:
       - uses: actions/download-artifact@v3
         with:
-          name: artifact
           path: dist
 
       - uses: pypa/gh-action-pypi-publish@v1.8.5
