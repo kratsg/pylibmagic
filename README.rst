@@ -65,7 +65,7 @@ and the libraries are installed at
 
 .. |Actions Status| image:: https://github.com/kratsg/pylibmagic/workflows/CI/badge.svg
    :target: https://github.com/kratsg/pylibmagic/actions
-.. |Cirrus State| image:: https://api.cirrus-ci.com/github/kratsg/pylibmagic.svg?branch=main
+.. |Cirrus Status| image:: https://api.cirrus-ci.com/github/kratsg/pylibmagic.svg?branch=main
    :target: https://cirrus-ci.com/github/kratsg/pylibmagic
 .. |Documentation Status| image:: https://readthedocs.org/projects/pylibmagic/badge/?version=latest
    :target: https://pylibmagic.readthedocs.io/en/latest/?badge=latest
