@@ -93,12 +93,12 @@ jobs:
 
       - uses: actions/upload-artifact@v3
         with:
-          name: wheels
-          path: wheelhouse/*.whl
+          name: artifacts
+          path: dist
 
       - uses: actions/download-artifact@v3
         with:
-          name: wheels
+          name: artifacts
           path: newartifacts
 
       - name: Display structure of downloaded files
@@ -113,6 +113,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@v3
         with:
+          name: artifacts
           path: dist
 
       - uses: pypa/gh-action-pypi-publish@v1.8.5
