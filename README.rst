@@ -1,10 +1,10 @@
-pylibmagic v0.2.0
+pylibmagic v0.4.0
 =================
 
 A lightweight, minimal python package that ships ``magic`` libraries
 using automake, CMake, scikit-build, and cibuildwheel.
 
-|Actions Status| |Documentation Status| |Code style: black|
+|Actions Status| |Cirrus Status| |Documentation Status| |Code style: black|
 
 |PyPI version| |Conda-Forge| |PyPI platforms|
 
@@ -63,8 +63,25 @@ and the libraries are installed at
     $ python -c "import pylibmagic; print(pylibmagic.data)"
 
 
+Releasing
+---------
+
+To release, due to concurrency issues, we need to push the tag after Cirrus CI finishes with the building for pushing to the main branch. So the order is typically:
+
+.. code:: bash
+
+   tbump 0.4.0 --no-tag-push
+   # wait until Cirrus CI finishes
+   git push origin v0.4.0
+   # wait until Cirrus CI finishes
+   gh release create
+
+See [cirruslabs/cirrus-ci-docs#1167](https://github.com/cirruslabs/cirrus-ci-docs/issues/1167) for more details.
+
 .. |Actions Status| image:: https://github.com/kratsg/pylibmagic/workflows/CI/badge.svg
    :target: https://github.com/kratsg/pylibmagic/actions
+.. |Cirrus Status| image:: https://api.cirrus-ci.com/github/kratsg/pylibmagic.svg?branch=main
+   :target: https://cirrus-ci.com/github/kratsg/pylibmagic
 .. |Documentation Status| image:: https://readthedocs.org/projects/pylibmagic/badge/?version=latest
    :target: https://pylibmagic.readthedocs.io/en/latest/?badge=latest
 .. |Code style: black| image:: https://img.shields.io/badge/code%20style-black-000000.svg

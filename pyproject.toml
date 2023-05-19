@@ -1,13 +1,70 @@
 [build-system]
-requires = [
-    "setuptools>=42",
-    "setuptools_scm[toml]>=3.4",
-    "wheel",
-    "scikit-build",
-    "cmake",
-    "ninja; platform_system!='Windows'"
+requires = ["scikit-build-core[pyproject]"]
+build-backend = "scikit_build_core.build"
+
+[project]
+name = "pylibmagic"
+dynamic = ["version"]
+description = "scikit-build project with CMake for compiling libmagic"
+readme = "README.rst"
+requires-python = ">=3.7"
+authors = [
+    { name = "Giordon Stark", email = "kratsg@gmail.com" },
 ]
-build-backend = "setuptools.build_meta"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering",
+]
+dependencies = [
+    "importlib-resources;python_version<'3.9'",
+    "typing-extensions>=3.7;python_version<'3.8'",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest-cov>=3",
+    "pytest>=6",
+    "tbump>=6.7.0",
+    "twine",
+]
+docs = [
+    "myst-parser>=0.13",
+    "sphinx-book-theme>=0.1.0",
+    "sphinx-copybutton",
+    "Sphinx>=4.0",
+]
+test = [
+    "pytest-cov>=3",
+    "pytest>=6",
+    "python-magic",
+]
+
+[project.urls]
+"Bug Tracker" = "https://github.com/kratsg/pylibmagic/issues"
+Changelog = "https://github.com/kratsg/pylibmagic/releases"
+Discussions = "https://github.com/kratsg/pylibmagic/discussions"
+Documentation = "https://pylibmagic.readthedocs.io/"
+Homepage = "https://github.com/kratsg/pylibmagic"
+
+[tool.scikit-build]
+metadata.version.provider = "scikit_build_core.metadata.setuptools_scm"
+sdist.include = ["src/pylibmagic/_version.py"]
+wheel.install-dir = "pylibmagic"
+minimum-version = "0.3"
+wheel.py-api = "py3"
+wheel.expand-macos-universal-tags = true
 
 [tool.setuptools_scm]
 write_to = "src/pylibmagic/_version.py"
@@ -18,6 +75,7 @@ test-extras = ["test"]
 test-command = "pytest {project}/tests"
 archs = ["auto64"]
 before-all = "yum install autoconf automake"
+build = ["cp310-*"]
 
 [[tool.cibuildwheel.overrides]]
 select = "*-musllinux*"
@@ -38,32 +96,54 @@ testpaths = [
 markers = [
     "isolate",
 ]
+log_cli_level = "INFO"
 
 
 [tool.pycln]
 all = true
 
-
 [tool.mypy]
 files = "src"
-python_version = "3.9"
+python_version = "3.7"
 warn_unused_configs = true
 strict = true
+show_error_codes = true
+enable_error_code = ["ignore-without-code", "redundant-expr", "truthy-bool"]
+warn_unreachable = true
 
-
-[tool.check-manifest]
-ignore = [
-    ".github/**",
-    "docs/**",
-    ".pre-commit-config.yaml",
-    ".readthedocs.yml",
-    "src/*/_version.py",
-    "noxfile.py",
+[tool.ruff]
+select = [
+  "E", "F", "W", # flake8
+  "B",  "B904",  # flake8-bugbear
+  "I",           # isort
+  "ARG",         # flake8-unused-arguments
+  "C4",          # flake8-comprehensions
+  "EM",          # flake8-errmsg
+  "ICN",         # flake8-import-conventions
+  "ISC",         # flake8-implicit-str-concat
+  "PGH",         # pygrep-hooks
+  "PIE",         # flake8-pie
+  "PL",          # pylint
+  "PT",          # flake8-pytest-style
+  "PTH",         # flake8-use-pathlib
+  "RET",         # flake8-return
+  "RUF",         # Ruff-specific
+  "SIM",         # flake8-simplify
+  "T20",         # flake8-print
+  "UP",          # pyupgrade
+  "YTT",         # flake8-2020
 ]
+extend-ignore = ["PLR", "E501"]
+target-version = "py37"
+typing-modules = ["mapyde._compat.typing"]
+src = ["src"]
+unfixable = ["T20", "F841"]
+exclude = []
+isort.required-imports = ["from __future__ import annotations"]
 
-[tool.isort]
-profile = "black"
-
+[tool.ruff.per-file-ignores]
+"tests/**" = ["T20"]
+"noxfile.py" = ["T20"]
 
 [tool.pylint]
 master.py-version = "3.7"
