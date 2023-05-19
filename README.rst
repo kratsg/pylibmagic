@@ -63,6 +63,20 @@ and the libraries are installed at
     $ python -c "import pylibmagic; print(pylibmagic.data)"
 
 
+Releasing
+---------
+
+To release, due to concurrency issues, we need to push the tag after Cirrus CI finishes with the building for pushing to the main branch. So the order is typically:
+
+.. code:: bash
+
+   tbump 0.4.0 --no-tag-push
+   # wait until Cirrus CI finishes
+   git push origin v0.4.0
+   gh release create
+
+See [cirruslabs/cirrus-ci-docs#1167](https://github.com/cirruslabs/cirrus-ci-docs/issues/1167) for more details.
+
 .. |Actions Status| image:: https://github.com/kratsg/pylibmagic/workflows/CI/badge.svg
    :target: https://github.com/kratsg/pylibmagic/actions
 .. |Cirrus Status| image:: https://api.cirrus-ci.com/github/kratsg/pylibmagic.svg?branch=main
