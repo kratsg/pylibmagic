@@ -58,13 +58,14 @@ Discussions = "https://github.com/kratsg/pylibmagic/discussions"
 Documentation = "https://pylibmagic.readthedocs.io/"
 Homepage = "https://github.com/kratsg/pylibmagic"
 
+
 [tool.scikit-build]
 metadata.version.provider = "scikit_build_core.metadata.setuptools_scm"
 sdist.include = ["src/pylibmagic/_version.py"]
 wheel.install-dir = "pylibmagic"
 minimum-version = "0.3"
 wheel.py-api = "py3"
-wheel.expand-macos-universal-tags = true
+
 
 [tool.setuptools_scm]
 write_to = "src/pylibmagic/_version.py"
@@ -85,6 +86,7 @@ before-all = "apk add autoconf automake"
 select = "*-macosx*"
 before-all = "brew install autoconf automake libtool"
 
+
 [tool.pytest.ini_options]
 minversion = "6.0"
 addopts = ["-ra", "--showlocals", "--strict-markers", "--strict-config", "-m", "not isolate"]
@@ -99,9 +101,6 @@ markers = [
 log_cli_level = "INFO"
 
 
-[tool.pycln]
-all = true
-
 [tool.mypy]
 files = "src"
 python_version = "3.7"
@@ -110,6 +109,7 @@ strict = true
 show_error_codes = true
 enable_error_code = ["ignore-without-code", "redundant-expr", "truthy-bool"]
 warn_unreachable = true
+
 
 [tool.ruff]
 select = [
