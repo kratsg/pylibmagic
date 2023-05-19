@@ -73,6 +73,7 @@ To release, due to concurrency issues, we need to push the tag after Cirrus CI f
    tbump 0.4.0 --no-tag-push
    # wait until Cirrus CI finishes
    git push origin v0.4.0
+   # wait until Cirrus CI finishes
    gh release create
 
 See [cirruslabs/cirrus-ci-docs#1167](https://github.com/cirruslabs/cirrus-ci-docs/issues/1167) for more details.
