@@ -73,6 +73,9 @@ jobs:
     needs: [build_wheels, make_sdist, download_cirrus]
     runs-on: ubuntu-latest
     if: github.event_name == 'release' && github.event.action == 'published'
+    environment: pypi
+    permissions:
+      id-token: write
 
     steps:
       - uses: actions/download-artifact@v3
@@ -83,8 +86,4 @@ jobs:
       - name: Show artifacts
         run: ls -lavh dist
 
-      - uses: pypa/gh-action-pypi-publish@v1.8.6
-        with:
-          user: __token__
-          # Remember to generate this and set it in "GitHub Secrets"
-          password: ${{ secrets.pypi_password }}
+      - uses: pypa/gh-action-pypi-publish@release/v1

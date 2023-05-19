@@ -6,7 +6,7 @@ using automake, CMake, scikit-build, and cibuildwheel.
 
 |Actions Status| |Cirrus Status| |Documentation Status| |Code style: black|
 
-|PyPI version| |Conda-Forge| |PyPI platforms|
+|PyPI version| |PyPI platforms|
 
 |GitHub Discussion| |Gitter|
 
@@ -88,8 +88,6 @@ See [cirruslabs/cirrus-ci-docs#1167](https://github.com/cirruslabs/cirrus-ci-doc
    :target: https://github.com/psf/black
 .. |PyPI version| image:: https://badge.fury.io/py/pylibmagic.svg
    :target: https://pypi.org/project/pylibmagic/
-.. |Conda-Forge| image:: https://img.shields.io/conda/vn/conda-forge/pylibmagic
-   :target: https://github.com/conda-forge/pylibmagic-feedstock
 .. |PyPI platforms| image:: https://img.shields.io/pypi/pyversions/pylibmagic
    :target: https://pypi.org/project/pylibmagic/
 .. |GitHub Discussion| image:: https://img.shields.io/static/v1?label=Discussions&message=Ask&color=blue&logo=github
