@@ -20,7 +20,6 @@ jobs:
 
       - uses: actions/upload-artifact@v3
         with:
-          name: dist
           path: dist/*.tar.gz
 
   build_wheels:
@@ -42,7 +41,6 @@ jobs:
       - name: Upload wheels
         uses: actions/upload-artifact@v3
         with:
-          name: macos-x86
           path: wheelhouse/*.whl
 
   download_cirrus:
@@ -69,7 +67,6 @@ jobs:
 
       - uses: actions/upload-artifact@v3
         with:
-          name: ${{ matrix.name }}
           path: wheelhouse/*.whl
 
   upload_all:
@@ -83,12 +80,10 @@ jobs:
     steps:
       - uses: actions/download-artifact@v3
         with:
-          path: artifacts
+          name: artifact
+          path: dist
 
-      - name: Merge all artifacts into dist/
-        run: |
-          mkdir dist
-          find artifacts -type f -exec mv -t dist {} +
-          ls -lavh dist
+      - name: Show artifacts
+        run: ls -lavh dist
 
       - uses: pypa/gh-action-pypi-publish@release/v1
