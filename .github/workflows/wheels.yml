@@ -67,6 +67,7 @@ jobs:
         with:
           task: ${{ matrix.task }}
           dest: wheelhouse
+          commit: ${{ github.event.release.tag_name }}
         timeout-minutes: 30
 
       - uses: actions/upload-artifact@v3
