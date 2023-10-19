@@ -36,14 +36,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.7", "3.10", "3.11"]
+        python-version: ["3.7", "3.12"]
         sys:
           - { os: ubuntu-latest, shell: bash }
           - { os: macos-latest, shell: bash }
         experimental: [false]
-        exclude:
-          - sys: { os: macos-latest, shell: bash }
-            python-version: 3.11
+        exclude: []
+        #  - sys: { os: macos-latest, shell: bash }
+        #    python-version: 3.12
 
         include:
           - python-version: pypy-3.7
