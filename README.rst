@@ -1,4 +1,4 @@
-pylibmagic v0.4.0
+pylibmagic v0.5.0
 =================
 
 A lightweight, minimal python package that ships ``magic`` libraries
@@ -70,9 +70,9 @@ To release, due to concurrency issues, we need to push the tag after Cirrus CI f
 
 .. code:: bash
 
-   tbump 0.4.0 --no-tag-push
+   tbump 0.5.0 --no-tag-push
    # wait until Cirrus CI finishes
-   git push origin v0.4.0
+   git push origin v0.5.0
    # wait until Cirrus CI finishes
    gh release create
 
