@@ -18,7 +18,7 @@ jobs:
       - name: Build SDist
         run: pipx run build --sdist
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           path: dist/*.tar.gz
 
@@ -39,7 +39,7 @@ jobs:
       - uses: pypa/cibuildwheel@v2.16.2
 
       - name: Upload wheels
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           path: wheelhouse/*.whl
 
@@ -65,7 +65,7 @@ jobs:
           commit: ${{ github.event.release.tag_name || github.sha }}
         timeout-minutes: 30
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           path: wheelhouse/*.whl
 
