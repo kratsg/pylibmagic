@@ -17,7 +17,7 @@ if sys.version_info >= (3, 9):
     from importlib import resources
 else:
     import importlib_resources as resources
-data = resources.files(__name__)
+data = resources.files(__name__) / "lib"
 
 # structure below matches https://github.com/python/cpython/blob/b3f2d4c8bab52573605c96c809a1e2162eee9d7e/Lib/ctypes/util.py
 keys: list[str] = []
