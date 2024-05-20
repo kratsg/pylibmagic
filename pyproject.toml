@@ -7,7 +7,7 @@ name = "pylibmagic"
 dynamic = ["version"]
 description = "scikit-build project with CMake for compiling libmagic"
 readme = "README.rst"
-requires-python = ">=3.7"
+requires-python = ">=3.8"
 authors = [
     { name = "Giordon Stark", email = "kratsg@gmail.com" },
 ]
@@ -20,7 +20,6 @@ classifiers = [
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
@@ -30,7 +29,6 @@ classifiers = [
 ]
 dependencies = [
     "importlib-resources;python_version<'3.9'",
-    "typing-extensions>=3.7;python_version<'3.8'",
 ]
 
 [project.optional-dependencies]
@@ -104,7 +102,7 @@ log_cli_level = "INFO"
 
 [tool.mypy]
 files = "src"
-python_version = "3.7"
+python_version = "3.8"
 warn_unused_configs = true
 strict = true
 show_error_codes = true
@@ -147,7 +145,7 @@ isort.required-imports = ["from __future__ import annotations"]
 "noxfile.py" = ["T20"]
 
 [tool.pylint]
-master.py-version = "3.7"
+master.py-version = "3.8"
 master.ignore-paths= ["src/pylibmagic/_version.py"]
 reports.output-format = "colorized"
 similarities.ignore-imports = "yes"
