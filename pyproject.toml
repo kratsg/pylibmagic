@@ -71,6 +71,7 @@ write_to = "src/pylibmagic/_version.py"
 
 
 [tool.cibuildwheel]
+build-frontend = "build[uv]"
 test-extras = ["test"]
 test-command = "pytest {project}/tests"
 archs = ["auto64"]
