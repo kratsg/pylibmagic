@@ -1,7 +1,7 @@
 build_and_store_wheels: &BUILD_AND_STORE_WHEELS
   only_if: $CIRRUS_BRANCH == 'main' || $CIRRUS_TAG != '' || $CIRRUS_PR != ''
   install_cibuildwheel_script:
-    - python -m pip install cibuildwheel==2.17.0
+    - python -m pip install cibuildwheel[uv]==2.19.0
   run_cibuildwheel_script:
     - cibuildwheel
   wheels_artifacts:
