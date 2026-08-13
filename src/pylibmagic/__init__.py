@@ -31,7 +31,9 @@ elif os.name == "posix":
     keys = ["LIBRARY_PATH", "LD_LIBRARY_PATH"]
 
 if not keys:
-    msg = f"{os.name} / {sys.platform} not supported yet."  # pylint: disable=invalid-name
+    msg = (
+        f"{os.name} / {sys.platform} not supported yet."  # pylint: disable=invalid-name
+    )
     raise OSError(msg)
 
 for key in keys:
