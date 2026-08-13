@@ -13,14 +13,20 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+permissions: {}
+
 jobs:
   pre-commit:
     name: Format
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-      - uses: pre-commit/action@v3.0.1
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+      - uses: pre-commit/action@2c7b3805fd2a0fd8c1884dcaebf91fc102a13ecd # v3.0.1
         with:
           extra_args: --hook-stage manual --all-files
       - name: Run PyLint
@@ -33,6 +39,8 @@ jobs:
     runs-on: ${{ matrix.sys.os }}
     continue-on-error: ${{ matrix.experimental }}
     needs: [pre-commit]
+    permissions:
+      contents: read
     strategy:
       fail-fast: false
       matrix:
@@ -58,9 +66,11 @@ jobs:
         shell: ${{ matrix.sys.shell }}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
-      - uses: msys2/setup-msys2@v2
+      - uses: msys2/setup-msys2@66cd2cce69caa17b53920067426061ca1de3a884 # v2.32.0
         if: matrix.sys.os == 'windows-latest'
         with:
           update: true
@@ -74,7 +84,7 @@ jobs:
         if: matrix.sys.os == 'macos-latest'
         run: brew install autoconf automake libtool
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         if: matrix.sys.os != 'windows-latest'
         with:
           python-version: ${{ matrix.python-version }}

@@ -6,25 +6,36 @@ on:
     types:
       - published
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions: {}
+
 jobs:
   make_sdist:
     name: Make SDist
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
+          persist-credentials: false
 
       - name: Build SDist
         run: pipx run build --sdist
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           path: dist/*.tar.gz
 
   build_wheels:
     name: Wheel on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
+    permissions:
+      contents: read
     strategy:
       fail-fast: false
       matrix:
@@ -32,22 +43,24 @@ jobs:
         #os: [ubuntu-latest, windows-latest, macos-latest]
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
+          persist-credentials: false
 
-      - uses: pypa/cibuildwheel@v2.19.1
+      - uses: pypa/cibuildwheel@1828c10ab37f080699c7b81cea34097c684a7074 # v4.2.0
 
       - name: Upload wheels
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           path: wheelhouse/*.whl
 
   download_cirrus:
+    name: Download Cirrus wheels
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     permissions:
-      checks: read
+      checks: read # poll Cirrus CI build status via getsentry/action-wait-for-cirrus
     strategy:
       matrix:
         include:
@@ -58,27 +71,28 @@ jobs:
           - task: Build macOS arm64 wheels.
             name: macos-arm64
     steps:
-      - uses: getsentry/action-wait-for-cirrus@v1.0.0
+      - uses: getsentry/action-wait-for-cirrus@8ccc84ca7b559fe7ddd22baab1270ecb3f214265 # v1.0.0
         with:
           task: ${{ matrix.task }}
           dest: wheelhouse
           commit: ${{ github.event.release.tag_name || github.sha }}
         timeout-minutes: 30
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           path: wheelhouse/*.whl
 
   upload_all:
+    name: Upload to PyPI
     needs: [build_wheels, make_sdist, download_cirrus]
     runs-on: ubuntu-latest
     if: github.event_name == 'release' && github.event.action == 'published'
     environment: pypi
     permissions:
-      id-token: write
+      id-token: write # trusted publishing to PyPI
 
     steps:
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
           name: artifact
           path: dist
@@ -86,4 +100,4 @@ jobs:
       - name: Show artifacts
         run: ls -lavh dist
 
-      - uses: pypa/gh-action-pypi-publish@release/v1
+      - uses: pypa/gh-action-pypi-publish@dc37677b2e1c63e2034f94d8a5b11f265b73ba33 # v1.14.2
